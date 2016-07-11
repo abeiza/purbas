@@ -37,11 +37,3 @@
 | in the URL cannot be matched to a valid route.
 |
 */
-
-$route['default_controller'] = "home/home";
-$route['admin'] = "backend/login";
-$route['404_override'] = '';
-
-
-/* End of file routes.php */
-/* Location: ./application/config/routes.php */

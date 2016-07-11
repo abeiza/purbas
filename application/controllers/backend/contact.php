@@ -65,6 +65,3 @@
 			}
 		}
 	}
-
-/*End of file contact.php*/
-/*Location:.application/controllers/backend/contact.php*/
