@@ -9,7 +9,7 @@
 		function index(){
 			$cek = $this->session->userdata('success_login');
 			if(!$cek){
-				$this->load->view('back/login_view');
+				$this->load->view('back/login/login_view');
 			}else{
 				$contact = $this->db->query('select * from purb_contact');
 				foreach($contact->result() as $db){

@@ -50,6 +50,8 @@
 					$data['product_principle_id'] = $this->input->post('code');
 					$data['product_desc'] = $this->input->post('desc');
 					$data['product_category'] = $this->input->post('category');
+					$data['product_promo'] = $this->input->post('promo');
+					$data['product_new'] = $this->input->post('type');
 					$data['product_status'] = $this->input->post('status');
 					
 					
@@ -105,6 +107,8 @@
 						$data['product_principle_id'] = $this->input->post('code');
 						$data['product_desc'] = $this->input->post('desc');
 						$data['product_category'] = $this->input->post('category');
+						$data['product_promo'] = $this->input->post('promo');
+						$data['product_new'] = $this->input->post('type');
 						$data['product_status'] = $this->input->post('status');
 						
 						$data['product_pict'] = $upload_data['file_name'];
@@ -146,6 +150,8 @@
 				$data['code'] = $db->product_principle_id;
 				$data['pict'] = $db->product_pict;
 				$data['cat'] = $db->product_category;
+				$data['promo'] = $db->product_promo;
+				$data['type'] = $db->product_new;
 				//$data['tag'] = $db->post_tag;
 			}
 			$data['category'] = $this->db->query("select category_id, category_name from purb_category_product order by category_name");
@@ -173,6 +179,8 @@
 					$data['product_principle_id'] = $this->input->post('code');
 					$data['product_desc'] = $this->input->post('desc');
 					$data['product_category'] = $this->input->post('category');
+					$data['product_promo'] = $this->input->post('promo');
+					$data['product_new'] = $this->input->post('type');
 					$data['product_status'] = $this->input->post('status');
 					
 					
@@ -223,6 +231,8 @@
 						$data['product_principle_id'] = $this->input->post('code');
 						$data['product_desc'] = $this->input->post('desc');
 						$data['product_category'] = $this->input->post('category');
+						$data['product_promo'] = $this->input->post('promo');
+						$data['product_new'] = $this->input->post('type');
 						$data['product_status'] = $this->input->post('status');
 						$data['product_pict'] = $upload_data['file_name'];
 						$data['product_thumb_pict'] = $config1['new_image'];

@@ -130,6 +130,24 @@
 										</div>
 									</div>
 									<div class="item form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="promo">Promo
+										</label>
+										<div class="col-md-6 col-sm-12 col-xs-12">
+											<input value="<?php echo $promo;?>" id="promo" class="form-control col-md-7 col-xs-12" name="promo" placeholder="Promotion / Discount" type="text">
+										</div>
+									</div>
+									<div class="item form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="type">Product Type
+										</label>
+										<div class="col-md-3 col-sm-3 col-xs-12">
+											<select id="type" class="form-control col-md-7 col-xs-12" name="type">
+												<option value="" disabled> -- Select Type -- </option>
+												<option value="1" <?php if($type==1){echo "selected";}?>> New </option>
+												<option value="" <?php if($type==0){echo "selected";}?>> Regular </option>
+											</select>
+										</div>
+									</div>
+									<div class="item form-group">
 										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="category">Status <span class="required">*</span>
 										</label>
 										<div class="col-md-3 col-sm-12 col-xs-12">

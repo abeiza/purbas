@@ -34,13 +34,13 @@
 			$config['prev_tag_open'] = "<li class='previous'>";
 			$config['prev_tag_close'] = "</li>";
 			
-			//$config['first_link'] = "&laquo; First";
-			//$config['first_tag_open'] = "<li>";
-			//$config['first_tag_close'] = "</li>";
+			$config['first_link'] = "<i class='icon-left-open-1'></i>";
+			$config['first_tag_open'] = "<li class='previous'>";
+			$config['first_tag_close'] = "</li>";
 			
-			//$config['last_link'] = "Last &raquo;";
-			//$config['last_tag_open'] = "<li>";
-			//$config['last_tag_close'] = "</li>";
+			$config['last_link'] = "<i class='icon-right-open-1'></i>";
+			$config['last_tag_open'] = "<li class='next'>";
+			$config['last_tag_close'] = "</li>";
 
 			$config['cur_tag_open'] = "<li class='active'>";
 			$config['cur_tag_close'] = "</li>";
@@ -94,7 +94,7 @@
 			$category = $this->db->query("select * from purb_post, purb_category_post, purb_user
 			where purb_post.author=purb_user.user_id and purb_post.post_category=purb_category_post.category_post_id 
 			and purb_post.post_status='posting' and purb_category_post.category_post_id='".$id."'");
-			$config['base_url'] = base_url()."index.php/home/post/".$id."/";
+			$config['base_url'] = base_url()."index.php/home/post/category/".$id."/";
 			$config['total_rows'] = $category->num_rows();
 			$config['per_page'] = $limit;
 			$config['uri_segment'] = 5;
@@ -109,13 +109,13 @@
 			$config['prev_tag_open'] = "<li class='previous'>";
 			$config['prev_tag_close'] = "</li>";
 			
-			//$config['first_link'] = "&laquo; First";
-			//$config['first_tag_open'] = "<li>";
-			//$config['first_tag_close'] = "</li>";
+			$config['first_link'] = "<i class='icon-left-open-1'></i>";
+			$config['first_tag_open'] = "<li class='previous'>";
+			$config['first_tag_close'] = "</li>";
 			
-			//$config['last_link'] = "Last &raquo;";
-			//$config['last_tag_open'] = "<li>";
-			//$config['last_tag_close'] = "</li>";
+			$config['last_link'] = "<i class='icon-right-open-1'></i>";
+			$config['last_tag_open'] = "<li class='next'>";
+			$config['last_tag_close'] = "</li>";
 
 			$config['cur_tag_open'] = "<li class='active'>";
 			$config['cur_tag_close'] = "</li>";
@@ -163,6 +163,34 @@
 		function single($id){
 			$id = $this->uri->segment(4);
 			$single = $this->db->query("select * from purb_post, purb_category_post, purb_user where purb_category_post.category_post_id = purb_post.post_category and purb_post.author = purb_user.user_id and purb_post.post_id='".$id."'");
+			
+			$max_start = $this->db->query("select post_id from purb_post order by post_id asc limit 1");
+			foreach($max_start->result() as $start){
+				$data['min'] = $start->post_id;
+			}
+			
+			$max_end = $this->db->query("select post_id from purb_post order by post_id desc limit 1");
+			foreach($max_end->result() as $end){
+				$data['max'] = $end->post_id;
+			}
+			
+			$max_before = $this->db->query("select post_id from purb_post where post_id < '".$id."' order by post_id desc limit 1");
+			if($max_before->num_rows() == 0){
+				$data['before'] = null;
+			}else{
+				foreach($max_before->result() as $before){
+					$data['before'] = $before->post_id;
+				}
+			}
+			
+			$max_after = $this->db->query("select post_id from purb_post where post_id > '".$id."' order by post_id asc limit 1");
+			if($max_after->num_rows() == 0){
+				$data['after'] = null;
+			}else{
+				foreach($max_after->result() as $after){
+					$data['after'] = $after->post_id;
+				}
+			}
 			
 			$header['menu'] = $this->db->query("select menu_id, menu_name, menu_url from purb_menu order by menu_id asc");
 			$q = $this->db->query("select setting_logo from purb_setting");

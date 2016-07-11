@@ -5,7 +5,7 @@
                     <div class="page-title">
                         <div class="title_left">
                             <h3>
-								All Data Posts
+								All Message
 								<small>
 									Some examples to get you started
 								</small>
@@ -25,10 +25,8 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>All Data Posts <small>(List Data Post)</small></h2>
-                                    <div class="input-group" style="float:right;">
-										<a href="<?php echo base_url().'index.php/backend/manage_post/form_add/';?>"><button type="button" class="btn btn-primary">Add Post</button></a>
-									</div>
+                                    <h2>All Messages <small>(List Data Message from Users)</small></h2>
+                                    
 									<div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
@@ -36,10 +34,10 @@
                                         <thead>
                                             <tr class="headings">
 												<th></th>
-                                                <th>Post Title </th>
-                                                <th style="text-align:center;vertical-align:inherit">Short Desc </th>
-												<th style="text-align:center;vertical-align:inherit">Author </th>
-                                                <th>Last Modify </th>
+                                                <th>From </th>
+												<th>Email User </th>
+												<th style="text-align:center;vertical-align:inherit">Messages </th>
+                                                <th>Post Date </th>
                                                 <th style="text-align:center;vertical-align:inherit" class=" no-link last"><span class="nobr">Action</span>
                                                 </th>
                                             </tr>
@@ -47,21 +45,17 @@
 
                                         <tbody>
 											<?php 
-												if($post->num_rows() == 0){
+												if($messages->num_rows() == 0){
 													
 												}else{
-													foreach($post->result() as $db){
+													foreach($messages->result() as $db){
 														echo '<tr class="even pointer">';
 														echo '<td class=" "></td>';
-														echo '<td class=" ">'.$db->post_title.'</td>';
-														echo '<td class=" ">'.$db->post_short_desc.'</td>';
-														echo '<td class=" ">'.$db->author.'</td>';
-														if(empty($db->post_date_update)){
-															echo '<td class=" ">'.$db->post_date_create.'</td>';
-														}else{
-															echo '<td class=" ">'.$db->post_date_update.'</td>';
-														}
-														echo '<td class=" last"><a style="margin:0px 5px;" href="'.base_url().'index.php/backend/manage_post/form_edit/'.$db->post_id.'">Edit</a><a style="margin:0px 5px;" href="'.base_url().'index.php/backend/manage_post/delete/'.$db->post_id.'">Delete</a>';
+														echo '<td class=" ">'.$db->message_name.'</td>';
+														echo '<td class=" ">'.$db->message_email.'</td>';
+														echo '<td class=" ">'.$db->message_text.'</td>';
+														echo '<td class=" ">'.$db->message_date_post.'</td>';
+														echo '<td class=" last"><a style="margin:0px 5px;" href="'.base_url().'index.php/backend/message/delete/'.$db->message_id.'">Delete</a>';
 														echo '</tr>';
 													}
 												}

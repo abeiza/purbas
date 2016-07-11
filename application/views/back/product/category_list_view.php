@@ -27,7 +27,7 @@
                                 <div class="x_title">
                                     <h2>All Data Category <small>(List Data Categories)</small></h2>
                                     <div class="input-group" style="float:right;">
-										<a href="<?php echo base_url().'index.php/backend/manage_category_page/form_add/';?>"><button type="button" class="btn btn-primary">Add Post Category</button></a>
+										<a href="<?php echo base_url().'index.php/backend/manage_category_page/form_add/';?>"><button type="button" class="btn btn-primary">Add Product Category</button></a>
 									</div>
 									<div class="clearfix"></div>
                                 </div>

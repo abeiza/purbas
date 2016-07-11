@@ -75,8 +75,8 @@
 													<h1 style="color:#fff;text-align:center;padding-top:7.5%">No Image</h1>
 												</div>
 											<?php }else{?>
-												<div style="height:200px;width:100%;background-color:#f1f1f1;text-align:center;">
-													<img src="<?php echo base_url().'uploads/banner/original/'.$pict;?>" style="width:100%;height:100%;"/>
+												<div style="width:100%;background-color:#f1f1f1;text-align:center;">
+													<img src="<?php echo base_url().'uploads/banner/original/'.$pict;?>" style="width:100%;"/>
 												</div>
 											<?php }?>
 										</div>

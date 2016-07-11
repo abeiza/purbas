@@ -29,8 +29,15 @@
 					<p><?php echo $desc;?></p>
 					<div class="post-tags"><i class="icon-tag-1"></i><a href="<?php echo base_url().'index.php/home/post/category/'.$category_id; ?>"><?php echo $category;?></a></div>
 					<div class="post-navigation">
-					  <div class="pull-left"><i class='icon-left-open'></i>&nbsp;<a href="#">Previous Post</a></div>
-					  <div class="pull-right"><a href="#">Next Post</a>&nbsp;<i class='icon-right-open'></i></div>
+						<?php 
+							if($before != '' or $before != null){
+								echo '<div class="pull-left"><i class="icon-left-open"></i>&nbsp;<a href="'.base_url().'/index.php/home/post/single/'.$before.'/'.'">Previous Post</a></div>';
+							}
+							
+							if($after != '' or $after != null){
+								echo '<div class="pull-right"><a href="'.base_url().'/index.php/home/post/single/'.$after.'/'.'">Next Post</a>&nbsp;<i class="icon-right-open"></i></div>';
+							}
+						?>
 					</div>
 				</div>
 			</div>

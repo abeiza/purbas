@@ -10,7 +10,7 @@
 		function index(){
 			$cek = $this->session->userdata('success_login');
 			if(!$cek){
-				$this->load->view('back/login_view');
+				$this->load->view('back/login/login_view');
 			}else{
 				$this->load->model('model_purb');
 				$data['post'] = $this->db->query('select * from purb_post');
@@ -117,7 +117,7 @@
 						$data2['data_id'] = $this->model_purb->getMaxKode('purb_all_data', 'data_id', 'DTA');
 						$data2['data_kode'] = $data['post_id'];
 						$data2['data_title'] = $this->input->post('title');
-						$data2['data_url'] = base_url().'index.php/home/post/'.$data['post_id'];
+						$data2['data_url'] = base_url().'index.php/home/post/single/'.$data['post_id'];
 						
 						
 						$add_data = $this->model_purb->get_insert("purb_post",$data);

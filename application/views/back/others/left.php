@@ -49,6 +49,7 @@
                                         </li>
                                     </ul>
                                 </li>
+								<li><a href="<?php echo base_url().'index.php/backend/message';?>"><i class="fa fa-envelope" style="font-size:14px;"></i> Messages </a></li>
                                 <li><a><i class="fa fa-newspaper-o" style="font-size:14px;"></i> Appearance <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: none">
                                         <li><a href="<?php echo base_url().'index.php/backend/menu';?>">Menu</a>

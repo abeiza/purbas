@@ -33,13 +33,13 @@
 			$config['prev_tag_open'] = "<li class='previous'>";
 			$config['prev_tag_close'] = "</li>";
 			
-			//$config['first_link'] = "&laquo; First";
-			//$config['first_tag_open'] = "<li>";
-			//$config['first_tag_close'] = "</li>";
+			$config['first_link'] = "<i class='icon-left-open-1'></i>";
+			$config['first_tag_open'] = "<li class='previous'>";
+			$config['first_tag_close'] = "</li>";
 			
-			//$config['last_link'] = "Last &raquo;";
-			//$config['last_tag_open'] = "<li>";
-			//$config['last_tag_close'] = "</li>";
+			$config['last_link'] = "<i class='icon-right-open-1'></i>";
+			$config['last_tag_open'] = "<li class='next'>";
+			$config['last_tag_close'] = "</li>";
 
 			$config['cur_tag_open'] = "<li class='active'>";
 			$config['cur_tag_close'] = "</li>";
@@ -85,6 +85,34 @@
 			$product = $this->db->query("select * from purb_product, purb_category_product
 			where purb_product.product_category=purb_category_product.category_id 
 			and purb_product.product_status='posting' and purb_product.product_id='".$id."'");
+			
+			$max_start = $this->db->query("select product_id from purb_product order by product_id asc limit 1");
+			foreach($max_start->result() as $start){
+				$data['min'] = $start->product_id;
+			}
+			
+			$max_end = $this->db->query("select product_id from purb_product order by product_id desc limit 1");
+			foreach($max_end->result() as $end){
+				$data['max'] = $end->product_id;
+			}
+			
+			$max_before = $this->db->query("select product_id from purb_product where product_id < '".$id."' order by product_id desc limit 1");
+			if($max_before->num_rows() == 0){
+				$data['before'] = null;
+			}else{
+				foreach($max_before->result() as $before){
+					$data['before'] = $before->product_id;
+				}
+			}
+			
+			$max_after = $this->db->query("select product_id from purb_product where product_id > '".$id."' order by product_id asc limit 1");
+			if($max_after->num_rows() == 0){
+				$data['after'] = null;
+			}else{
+				foreach($max_after->result() as $after){
+					$data['after'] = $after->product_id;
+				}
+			}
 			
 			$header['menu'] = $this->db->query("select menu_id, menu_name, menu_url from purb_menu order by menu_id asc");
 			$q = $this->db->query("select setting_logo from purb_setting");
@@ -150,13 +178,13 @@
 			$config['prev_tag_open'] = "<li class='previous'>";
 			$config['prev_tag_close'] = "</li>";
 			
-			//$config['first_link'] = "&laquo; First";
-			//$config['first_tag_open'] = "<li>";
-			//$config['first_tag_close'] = "</li>";
+			$config['first_link'] = "<i class='icon-left-open-1'></i>";
+			$config['first_tag_open'] = "<li class='previous'>";
+			$config['first_tag_close'] = "</li>";
 			
-			//$config['last_link'] = "Last &raquo;";
-			//$config['last_tag_open'] = "<li>";
-			//$config['last_tag_close'] = "</li>";
+			$config['last_link'] = "<i class='icon-right-open-1'></i>";
+			$config['last_tag_open'] = "<li class='next'>";
+			$config['last_tag_close'] = "</li>";
 
 			$config['cur_tag_open'] = "<li class='active'>";
 			$config['cur_tag_close'] = "</li>";
@@ -232,6 +260,80 @@
 			$this->load->view('front/others/navigation',$header);
 			//$this->load->view('front/home/slider');
 			$this->load->view('front/single/content_single',$data);
+			$this->load->view('front/others/bottom');
+		}
+		
+		function searchData(){
+			$data = $this->input->post('search_data');
+			$page = $this->uri->segment(4);
+			$limit = 8;
+			if(!$page){
+				$offset = 0;
+			}else{
+				$offset = $page;
+			}
+			
+			$products = $this->db->query("select * from purb_product, purb_category_product
+			where purb_product.product_category=purb_category_product.category_id 
+			and purb_product.product_status='posting' and purb_product.product_name like '%".$data."%' ");
+			$config['base_url'] = base_url()."index.php/home/page/search/";
+			$config['total_rows'] = $products->num_rows();
+			$config['per_page'] = $limit;
+			$config['uri_segment'] = 4;
+			$config['full_tag_open'] = "<div class='paginator' style='margin-bottom:2px;'><ul id='pagination'>";
+			$config['full_tag_close'] = "</ul></div>";
+			
+			$config['next_link'] = "<i class='icon-right-thin'></i>";
+			$config['next_tag_open'] = "<li class='next'>";
+			$config['next_tag_close'] = "</li>";
+			
+			$config['prev_link'] = "<i class='icon-left-thin'></i>";
+			$config['prev_tag_open'] = "<li class='previous'>";
+			$config['prev_tag_close'] = "</li>";
+			
+			$config['first_link'] = "<i class='icon-left-open-1'></i>";
+			$config['first_tag_open'] = "<li class='previous'>";
+			$config['first_tag_close'] = "</li>";
+			
+			$config['last_link'] = "<i class='icon-right-open-1'></i>";
+			$config['last_tag_open'] = "<li class='next'>";
+			$config['last_tag_close'] = "</li>";
+
+			$config['cur_tag_open'] = "<li class='active'>";
+			$config['cur_tag_close'] = "</li>";
+			
+			$config['num_tag_open'] = "<li><span>";
+			$config['num_tag_close'] = "</span></li>";
+			
+			$this->pagination->initialize($config);
+			$datas['paging'] = $this->pagination->create_links();
+			
+			$datas['product'] = $this->db->query("select * from purb_product, purb_category_product
+			where purb_product.product_category=purb_category_product.category_id 
+			and purb_product.product_status='posting' and purb_product.product_name like '%".$data."%' LIMIT ".$limit." OFFSET ".$offset);
+	
+			
+			$headers['menu'] = $this->db->query("select menu_id, menu_name, menu_url from purb_menu order by menu_id asc");
+			$qa = $this->db->query("select setting_logo from purb_setting");
+			foreach($qa->result() as $db){
+				$headers['logo'] = $db->setting_logo;
+			}
+			
+			$query1 = $this->db->query('select * from purb_contact');
+			foreach($query1->result() as $db){
+				$datas['facebook'] = $db->contact_facebook;
+				$datas['twitter'] = $db->contact_twitter;
+				$datas['youtube'] = $db->contact_youtube;
+				$datas['linkedin'] = $db->contact_linkedin;
+			}
+			
+			//$data['category'] = $this->db->query("select * from purb_category_product order by category_post_id desc");
+			$this->load->view('front/others/top');
+			$this->load->view('front/others/back_to_top');
+			$this->load->view('front/others/header_top',$datas);
+			$this->load->view('front/others/navigation',$headers);
+			//$this->load->view('front/home/slider');
+			$this->load->view('front/catalogue/content',$datas);
 			$this->load->view('front/others/bottom');
 		}
 	}

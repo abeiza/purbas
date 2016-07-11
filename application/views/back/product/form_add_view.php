@@ -91,6 +91,24 @@
 										</div>
 									</div>
 									<div class="item form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="promo">Promo
+										</label>
+										<div class="col-md-6 col-sm-12 col-xs-12">
+											<input id="promo" class="form-control col-md-7 col-xs-12" name="promo" placeholder="Promotion / Discount" type="text">
+										</div>
+									</div>
+									<div class="item form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="type">Product Type
+										</label>
+										<div class="col-md-3 col-sm-3 col-xs-12">
+											<select id="type" class="form-control col-md-7 col-xs-12" name="type">
+												<option value="" disabled selected> -- Select Type -- </option>
+												<option value="1" > New </option>
+												<option value="" selected> Regular </option>
+											</select>
+										</div>
+									</div>
+									<div class="item form-group">
 										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="category">Status <span class="required">*</span>
 										</label>
 										<div class="col-md-3 col-sm-12 col-xs-12">
